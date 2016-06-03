@@ -20,7 +20,7 @@ private:
     bool stopFlag;
 
 signals:
-
+    void stoped();
 public slots:
 
 };

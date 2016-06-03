@@ -13,10 +13,12 @@ void  RtspThread::run()
     {
         ffmpeg->Play();
     }
+    stoped();
+    qDebug()<<"thread has stoped";
 }
 
 void RtspThread::stop()
 {
     stopFlag=true;
-    qDebug()<<"stop";
+    qDebug()<<"thread start stop...";
 }

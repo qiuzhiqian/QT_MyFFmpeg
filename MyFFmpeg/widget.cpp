@@ -15,6 +15,7 @@ Widget::Widget(QWidget *parent) :
 
 
     connect(ui->openBtn,SIGNAL(clicked(bool)),this,SLOT(showVideo()));
+    connect(rtsp,SIGNAL(stoped()),this,SLOT(showVideo()));
 
 }
 
@@ -27,6 +28,8 @@ void Widget::showVideo()
 {
     if(ui->openBtn->text()=="Open")
     {
+
+
         ffmpeg=new QFFmpeg(this);
         connect(ffmpeg, SIGNAL(GetImage(QImage)), this, SLOT(SetImage(QImage)));
         ffmpeg->Start();
@@ -39,18 +42,15 @@ void Widget::showVideo()
         }
 
         ui->openBtn->setText("Close");
+        qDebug()<<"Open";
     }
     else if(ui->openBtn->text()=="Close")
     {
 
         rtsp->stop();
-        //ffmpeg->Free_mem();
-        //closeVideo();
 
-
-        //disconnect(ffmpeg, SIGNAL(GetImage(QImage)), this, SLOT(SetImage(QImage)));
         ui->openBtn->setText("Open");
-        //delete ffmpeg;
+        qDebug()<<"Close";
     }
 }
 
@@ -64,4 +64,9 @@ void Widget::SetImage(const QImage &image)
         QPixmap pix = QPixmap::fromImage(image.scaled(tempWidth, tempHeight));
         ui->labVideo->setPixmap(pix);
     }
+}
+
+void Widget::closeVideo()
+{
+    ffmpeg->Free_mem();
 }

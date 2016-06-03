@@ -47,12 +47,14 @@ private:
     RtspThread *rtsp;
 
 signals:
-    void closeVideo();
+    //void closeVideo();
 
 private slots:
     void showVideo();
 
     void SetImage(const QImage &image);
+
+    void closeVideo();
 };
 
 #endif // WIDGET_H
